@@ -38,6 +38,8 @@ public class EditorWidgetFunctionLibrary : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"EditorStyle",
+				"UMG",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
