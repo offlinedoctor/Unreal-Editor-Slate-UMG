@@ -9,6 +9,8 @@
 #include "SlateCore.h"
 #include "Runtime/Engine/Classes/Engine/GameViewportClient.h"
 #include "Framework/Application/SlateApplication.h"
+#include "Misc/FileHelper.h"
+
 
 void UBPFL_EditorWidget::ShowNotification(FString NotificationString, float NotificationTimeLength)
 {
@@ -41,13 +43,50 @@ void UBPFL_EditorWidget::ShowNotificationSuccessFail(bool WasSuccessful, FString
     FSlateNotificationManager::Get().AddNotification(Info);
 }
 
-void UBPFL_EditorWidget::ShowFileOpenDialog(const FString& DialogTitle, const FString& DefaultPath, const FString& FileTypes, TArray<FString>& OutFileNames)
+void UBPFL_EditorWidget::ShowFileOpenDialog(FString DialogTitle, FString DefaultPath, FString FileTypes, TArray<FString>& OutputFilePaths)
 {
     void* ParentWindowPtr = FSlateApplication::Get().GetActiveTopLevelWindow()->GetNativeWindow()->GetOSWindowHandle();
     IDesktopPlatform* DesktopPlatform = FDesktopPlatformModule::Get();
     if (DesktopPlatform)
     {
         uint32 SelectionFlag = 0; //A value of 0 represents single file selection while a value of 1 represents multiple file selection
-        DesktopPlatform->OpenFileDialog(ParentWindowPtr, DialogTitle, DefaultPath, FString(""), FileTypes, SelectionFlag, OutFileNames);
+        DesktopPlatform->OpenFileDialog(ParentWindowPtr, DialogTitle, DefaultPath, FString(""), FileTypes, SelectionFlag, OutputFilePaths);
     }
+}
+
+//Add safety checks if user presses cancel
+
+TArray<FString> UBPFL_EditorWidget::LoadFromTextFile()
+{
+    TArray<FString> FilePath;
+
+    ShowFileOpenDialog("Text File to Load", " ", " ", FilePath);
+
+    IPlatformFile& FileManager = FPlatformFileManager::Get().GetPlatformFile();
+    TArray<FString> FileContents;
+    if (FileManager.FileExists(*FilePath[0]))
+    {
+        FFileHelper::LoadFileToStringArray(FileContents, *FilePath[0], FFileHelper::EHashOptions::None);
+    }
+
+    return FileContents;
+}
+
+//Add safety checks if user presses cancel
+
+void UBPFL_EditorWidget::SaveToTextFile(FString InputString)
+{
+    TArray<FString> FilePath;
+    TArray<FString> FileContents;
+
+    ShowFileOpenDialog("Text File to Load", " ", " ", FilePath);
+
+    InputString.ParseIntoArrayLines(FileContents, false);
+
+    IPlatformFile& FileManager = FPlatformFileManager::Get().GetPlatformFile();
+    if (FileManager.FileExists(*FilePath[0]))
+    {
+        FFileHelper::SaveStringArrayToFile(FileContents, *FilePath[0]);
+    }
+
 }
