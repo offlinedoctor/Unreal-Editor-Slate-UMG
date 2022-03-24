@@ -20,6 +20,9 @@ class EDITORWIDGETFUNCTIONLIBRARY_API UBPFL_EditorWidget : public UBlueprintFunc
 	static void ShowNotification(FString NotificationString, float NotificationTimeLength);
 
 	UFUNCTION(BlueprintCallable, Category = "Editor Widget Blueprint Function Library")
-	static void ShowNotificationSuccessFail  (bool WasSuccessful, FString NotificationString, float NotificationTimeLength);
+	static void ShowNotificationSuccessFail(bool WasSuccessful, FString NotificationStringOnSuccess, FString NotificationStringOnFail, float NotificationTimeLength);
+
+	UFUNCTION(BlueprintCallable, Category = "Editor Widget Blueprint Function Library")
+	static void ShowFileOpenDialog(const FString& DialogTitle, const FString& DefaultPath, const FString& FileTypes, TArray<FString>& OutFileNames);
 
 };
