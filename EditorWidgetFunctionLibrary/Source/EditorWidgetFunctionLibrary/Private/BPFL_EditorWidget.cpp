@@ -10,7 +10,12 @@
 #include "Runtime/Engine/Classes/Engine/GameViewportClient.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Misc/FileHelper.h"
-
+#include "Dialogs/CustomDialog.h"
+#include "Widgets/Text/STextBlock.h"
+#include "Widgets/SWindow.h"
+#include "Widgets/Text/STextBlock.h"
+#include "Widgets/SBoxPanel.h"
+#include "Interfaces/IMainFrameModule.h"
 
 void UBPFL_EditorWidget::ShowNotification(FString NotificationString, float NotificationTimeLength)
 {
@@ -90,3 +95,43 @@ void UBPFL_EditorWidget::SaveToTextFile(FString InputString)
     }
 
 }
+
+#define LOCTEXT_NAMESPACE "ConfirmationDialog"
+
+void UBPFL_EditorWidget::ShowConfirmationDialog(ELoginDialogChoice& BranchChoice)
+{
+        //This is the contents of the Dialogue Prompt itself, we sequester it into its neat area!
+        TSharedRef<SVerticalBox> DialogContents = SNew(SVerticalBox)
+        + SVerticalBox::Slot()
+        [
+            SNew(STextBlock)
+            .Text(LOCTEXT("HelperLabel", "Press Confirm to confirm the action, or otherwise Cancel the action."))
+        ];
+
+        //The Dialogue Box that will pop up (it automatically has OK & CANCEL button. If you pressed OK, it executes 0, if you press CANCEL it executes 1)
+        TSharedRef<SCustomDialog> HelloWorldDialog = SNew(SCustomDialog)
+        .Title(LOCTEXT("1", "Cancel"))
+        .DialogContent(DialogContents)	//Without this, it crashes. Fills the Slate with other Slates (from before)
+        .Buttons({ SCustomDialog::FButton(LOCTEXT("Confirmation", "Confirm")), SCustomDialog::FButton(LOCTEXT("Cancel", "Cancel")) });
+
+        // returns 0 when OK is pressed, 1 when Cancel is pressed
+        int ButtonPressed = HelloWorldDialog->ShowModal();
+
+        switch (ButtonPressed)
+        {
+            case 0:
+                UE_LOG(LogTemp, Warning, TEXT("Confirm Pressed"));
+                BranchChoice = ELoginDialogChoice::PressedOk;
+                break;
+            case 1:
+                UE_LOG(LogTemp, Warning, TEXT("Cancelled Pressed"));
+                BranchChoice = ELoginDialogChoice::PressedCancel;
+                break;
+            default:
+                UE_LOG(LogTemp, Warning, TEXT("Default"));
+                BranchChoice = ELoginDialogChoice::PressedCancel;
+                break;
+        }
+}
+
+#undef LOCTEXT_namespace

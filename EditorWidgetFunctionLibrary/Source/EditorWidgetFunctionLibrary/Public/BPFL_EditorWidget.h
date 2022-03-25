@@ -8,6 +8,14 @@
 #include "Widgets/Notifications/SNotificationList.h"
 #include "BPFL_EditorWidget.generated.h"
 
+UENUM(BlueprintType)
+enum class ELoginDialogChoice : uint8
+{
+	PressedOk,
+	PressedCancel
+};
+
+
 /**
  * 
  */
@@ -30,5 +38,8 @@ class EDITORWIDGETFUNCTIONLIBRARY_API UBPFL_EditorWidget : public UBlueprintFunc
 
 	UFUNCTION(BlueprintCallable, Category = "Editor Widget Blueprint Function Library")
 	static void SaveToTextFile(FString FileContents);
+
+	UFUNCTION(BlueprintCallable, Category = "Editor Widget Blueprint Function Library", Meta = (ExpandEnumAsExecs = "BranchChoice"))
+	static void ShowConfirmationDialog(ELoginDialogChoice& BranchChoice);
 
 };

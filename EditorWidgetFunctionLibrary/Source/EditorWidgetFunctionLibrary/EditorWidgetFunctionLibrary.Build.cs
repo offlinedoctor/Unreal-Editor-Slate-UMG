@@ -40,6 +40,9 @@ public class EditorWidgetFunctionLibrary : ModuleRules
 				"SlateCore",
 				"EditorStyle",
 				"UMG",
+				"UnrealEd", 
+				"MainFrame", 
+				"InputCore",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
