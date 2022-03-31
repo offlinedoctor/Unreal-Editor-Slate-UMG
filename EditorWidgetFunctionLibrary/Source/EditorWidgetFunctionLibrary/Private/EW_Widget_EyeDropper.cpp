@@ -5,19 +5,19 @@
 
 void UEW_Widget_EyeDropper::ReleaseSlateResources(bool bRelease)
 {
-    MySlice.Reset();
+    EyeDropperWidget.Reset();
 }
 
 TSharedRef<SWidget> UEW_Widget_EyeDropper::RebuildWidget()
 {
-    MySlice = SNew(SObjectPropertyEntryBox)
+    EyeDropperWidget = SNew(SObjectPropertyEntryBox)
         .AllowedClass(AActor::StaticClass())
         .OnObjectChanged_UObject(this, &UEW_Widget_EyeDropper::AssetSelected)		//this is called when you select an asset as the reference
         .ObjectPath_UObject(this, &UEW_Widget_EyeDropper::DisplayUI)				//this sets it the object path [i.e. literally displays on UX]	
         .OnIsEnabled_UObject(this, &UEW_Widget_EyeDropper::ReturnTrue)
         .OnShouldSetAsset_UObject(this, &UEW_Widget_EyeDropper::ReturnTrueForAsset);
 
-    return MySlice.ToSharedRef();
+    return EyeDropperWidget.ToSharedRef();
 }
 
 void UEW_Widget_EyeDropper::AssetSelected(const FAssetData& InAssetData)

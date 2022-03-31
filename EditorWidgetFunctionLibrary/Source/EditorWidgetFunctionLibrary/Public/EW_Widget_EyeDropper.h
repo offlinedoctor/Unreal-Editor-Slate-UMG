@@ -24,7 +24,7 @@ class EDITORWIDGETFUNCTIONLIBRARY_API UEW_Widget_EyeDropper : public UWidget
 
 	protected:
 	virtual TSharedRef<SWidget> RebuildWidget() override;
-	TSharedPtr<SObjectPropertyEntryBox> MySlice;
+	TSharedPtr<SObjectPropertyEntryBox> EyeDropperWidget;
 	
 	private:
 	FAssetData StoredAssetData;

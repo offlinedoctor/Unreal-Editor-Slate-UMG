@@ -44,6 +44,10 @@ public class EditorWidgetFunctionLibrary : ModuleRules
 				"MainFrame", 
 				"InputCore",
 				"PropertyEditor",
+				"EditorWidgets",
+				"ComponentVisualizers",
+				"TimeManagement",
+				"Kismet",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
