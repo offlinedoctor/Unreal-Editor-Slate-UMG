@@ -43,6 +43,7 @@ public class EditorWidgetFunctionLibrary : ModuleRules
 				"UnrealEd", 
 				"MainFrame", 
 				"InputCore",
+				"PropertyEditor",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
