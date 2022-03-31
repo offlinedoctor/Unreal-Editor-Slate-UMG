@@ -48,6 +48,8 @@ public class EditorWidgetFunctionLibrary : ModuleRules
 				"ComponentVisualizers",
 				"TimeManagement",
 				"Kismet",
+				"Synthesis",
+				"DesktopWidgets",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
