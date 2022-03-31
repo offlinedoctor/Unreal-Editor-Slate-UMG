@@ -20,7 +20,7 @@ class EDITORWIDGETFUNCTIONLIBRARY_API UEW_Widget_EyeDropper : public UWidget
 	virtual void ReleaseSlateResources(bool bRelease) override;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FString GetSelectedChoice();
+	AActor* GetSelectedChoice();
 
 	protected:
 	virtual TSharedRef<SWidget> RebuildWidget() override;

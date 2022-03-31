@@ -42,7 +42,9 @@ bool UEW_Widget_EyeDropper::ReturnTrue() const
     return true;
 }
 
-FString UEW_Widget_EyeDropper::GetSelectedChoice()
+AActor* UEW_Widget_EyeDropper::GetSelectedChoice()
 {
-    return StoredAssetData.ObjectPath.ToString();
+    UObject* storeAsObject = StoredAssetData.GetAsset();
+    AActor* ActorReference = Cast<AActor>(storeAsObject);
+    return ActorReference;
 }
