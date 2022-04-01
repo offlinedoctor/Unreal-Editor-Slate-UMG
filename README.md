@@ -16,3 +16,4 @@ Editor Utility Widget's are fast becoming the quickest and easiest way to create
 - Load a Text File
 - Save to a Text File
 - Confirmation Dialog Prompt
+- Asynchronous For Loop
