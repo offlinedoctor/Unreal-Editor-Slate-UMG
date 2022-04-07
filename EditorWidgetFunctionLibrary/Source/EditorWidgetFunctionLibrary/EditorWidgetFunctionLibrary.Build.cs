@@ -49,7 +49,14 @@ public class EditorWidgetFunctionLibrary : ModuleRules
 				"TimeManagement",
 				"Kismet",
 				"Synthesis",
+				"GameplayTagsEditor",
 				"DesktopWidgets",
+				"RigLogicEditor",
+				"Documentation",
+				"GraphEditor",
+				"AppFramework",
+				"VirtualCamera",
+				"NetcodeUnitTest",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

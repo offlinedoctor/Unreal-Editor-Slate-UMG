@@ -17,6 +17,7 @@
 #include "Widgets/SBoxPanel.h"
 #include "Interfaces/IMainFrameModule.h"
 
+
 void UBPFL_EditorWidget::ShowNotification(FString NotificationString, float NotificationTimeLength)
 {
     FNotificationInfo Info(("SpawnNotification_Notification", FText::FromString(NotificationString)));
@@ -135,3 +136,76 @@ void UBPFL_EditorWidget::ShowConfirmationDialog(ELoginDialogChoice& BranchChoice
 }
 
 #undef LOCTEXT_namespace
+
+bool UBPFL_EditorWidget::IsKeyDown(FKey InKey)
+{
+    FViewport* EditorViewport = GEditor->GetActiveViewport();
+    return EditorViewport->KeyState(InKey);
+}
+
+
+UDelayLoop::UDelayLoop(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer), WorldContextObject(nullptr), MyDelay(0.0f), MyIterations(0), Active(false)
+{
+
+}
+
+UDelayLoop* UDelayLoop::DelayLoop(const UObject* WorldContextObject, const float DelayInSeconds, const int Iterations)
+{
+    UDelayLoop* Node = NewObject<UDelayLoop>();
+    Node->WorldContextObject = WorldContextObject;
+    Node->MyDelay = DelayInSeconds;
+    Node->MyIterations = Iterations;
+    return Node;
+}
+
+
+void UDelayLoop::Activate()
+{
+    if (nullptr == WorldContextObject)
+    {
+        FFrame::KismetExecutionMessage(TEXT("Invalid WorldContextObject."), ELogVerbosity::Error);
+        return;
+    }
+    if (Active)
+    {
+        FFrame::KismetExecutionMessage(TEXT("DelayLoop is already running."), ELogVerbosity::Warning);
+    }
+    if (MyDelay <= 0.0f)
+    {
+        FFrame::KismetExecutionMessage(TEXT("DelayLoop delay can't be less or equal to 0."), ELogVerbosity::Warning);
+    }
+    if (MyIterations <= 0)
+    {
+        FFrame::KismetExecutionMessage(TEXT("DelayLoop iterations can't be less or equal to 0."), ELogVerbosity::Warning);
+    }
+
+    Active = true;
+
+    FScopedSlowTask SlateNotificationBar(MyIterations, LOCTEXT("LookingForUnusedAssetsText", "Looking for assets to remove"));
+    SlateNotificationBar.MakeDialog();
+    
+
+
+    for (int i = 0; i <= MyIterations; i++)
+    {
+        FTimerHandle IterationTimer;
+        SlateNotificationBar.EnterProgressFrame(1.0f/(float) MyIterations);
+        WorldContextObject->GetWorld()->GetTimerManager().SetTimer(IterationTimer, this, &UDelayLoop::ExecuteLoop, MyDelay * i);
+    }
+
+    FTimerHandle CompleteTimer;
+    WorldContextObject->GetWorld()->GetTimerManager().SetTimer(CompleteTimer, this, &UDelayLoop::ExecuteComplete, MyDelay * (MyIterations + 1));
+}
+
+void UDelayLoop::ExecuteLoop()
+{
+
+
+    Loop.Broadcast();
+}
+
+void UDelayLoop::ExecuteComplete()
+{
+    Complete.Broadcast();
+    Active = false;
+}
