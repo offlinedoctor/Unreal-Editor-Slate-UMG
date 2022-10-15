@@ -17,3 +17,18 @@ Editor Utility Widget's are fast becoming the quickest and easiest way to create
 - Save to a Text File
 - Confirmation Dialog Prompt
 - Asynchronous For Loop
+
+
+## Example Use:
+
+1. Create your Editor Utility Widget.
+
+2. In the UMG, search for the Slate's category and click and drag out the Slate of interest:
+
+![](https://github.com/offlinedoctor/Unreal-Editor-Widget-Function-Library/blob/main/SampleTutorial/1.%20ClickAndDragSlateWidget.png)
+
+3. Drag a pin out to get values (in this case, the value of the color wheel):
+
+![](https://github.com/offlinedoctor/Unreal-Editor-Widget-Function-Library/blob/main/SampleTutorial/2.1%20Access%20Values.png)
+
+![](https://github.com/offlinedoctor/Unreal-Editor-Widget-Function-Library/blob/main/SampleTutorial/2.2%20Access%20Wheel%20Color%20Value%20(1).png)
