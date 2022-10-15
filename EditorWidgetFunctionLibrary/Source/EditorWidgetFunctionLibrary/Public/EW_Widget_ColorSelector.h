@@ -28,6 +28,11 @@ class EDITORWIDGETFUNCTIONLIBRARY_API UEW_Widget_ColorSelector : public UWidget
 	virtual TSharedRef<SWidget> RebuildWidget() override;
 	TSharedPtr<SColorWheel> WidgetColorWheel;
 
+	virtual const FText GetPaletteCategory() override
+	{
+		return FText::FromString("Slates");
+	}
+
 	private:
 	FLinearColor CaptureColor;
 };

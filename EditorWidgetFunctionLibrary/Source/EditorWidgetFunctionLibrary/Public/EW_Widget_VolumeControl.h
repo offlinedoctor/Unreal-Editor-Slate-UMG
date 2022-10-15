@@ -25,4 +25,9 @@ class EDITORWIDGETFUNCTIONLIBRARY_API UEW_Widget_VolumeControl : public UWidget
 	virtual TSharedRef<SWidget> RebuildWidget() override;
 	TSharedPtr<SVolumeControl> VolumeControlWidget;
 	
+	virtual const FText GetPaletteCategory() override
+	{
+		return FText::FromString("Slates");
+	}
+
 };

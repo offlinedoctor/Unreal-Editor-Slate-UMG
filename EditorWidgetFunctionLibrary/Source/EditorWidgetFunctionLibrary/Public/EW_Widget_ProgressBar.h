@@ -25,4 +25,9 @@ class EDITORWIDGETFUNCTIONLIBRARY_API UEW_Widget_ProgressBar : public UWidget
 	virtual TSharedRef<SWidget> RebuildWidget() override;
 	TSharedPtr<SProgressBar> ProgressBarWidget;
 	
+	virtual const FText GetPaletteCategory() override
+	{
+		return FText::FromString("Slates");
+	}
+
 };

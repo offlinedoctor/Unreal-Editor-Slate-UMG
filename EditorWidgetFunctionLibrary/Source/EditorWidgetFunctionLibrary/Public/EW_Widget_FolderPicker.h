@@ -27,5 +27,10 @@ class EDITORWIDGETFUNCTIONLIBRARY_API UEW_Widget_FolderPicker : public UWidget
 	protected:
 	virtual TSharedRef<SWidget> RebuildWidget() override;
 	TSharedPtr<SDirectoryPicker> FolderPickerWidget;
-	
+
+	virtual const FText GetPaletteCategory() override
+	{
+		return FText::FromString("Slates");
+	}
+
 };

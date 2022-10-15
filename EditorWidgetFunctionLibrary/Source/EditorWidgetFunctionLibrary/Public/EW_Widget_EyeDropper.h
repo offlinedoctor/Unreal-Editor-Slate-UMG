@@ -11,7 +11,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(ClassGroup = "Slates")
 class EDITORWIDGETFUNCTIONLIBRARY_API UEW_Widget_EyeDropper : public UWidget
 {
 	GENERATED_BODY()
@@ -25,6 +25,11 @@ class EDITORWIDGETFUNCTIONLIBRARY_API UEW_Widget_EyeDropper : public UWidget
 	protected:
 	virtual TSharedRef<SWidget> RebuildWidget() override;
 	TSharedPtr<SObjectPropertyEntryBox> EyeDropperWidget;
+
+	virtual const FText GetPaletteCategory() override
+	{
+		return FText::FromString("Slates");
+	}
 	
 	private:
 	FAssetData StoredAssetData;
