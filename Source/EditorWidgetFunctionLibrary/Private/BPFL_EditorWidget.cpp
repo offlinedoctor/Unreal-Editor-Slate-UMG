@@ -10,11 +10,12 @@
 #include "Runtime/Engine/Classes/Engine/GameViewportClient.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Misc/FileHelper.h"
-#include "Dialogs/CustomDialog.h"
+#include "Dialog/SCustomDialog.h"
 #include "Widgets/Text/STextBlock.h"
 #include "Widgets/SWindow.h"
 #include "Widgets/Text/STextBlock.h"
 #include "Widgets/SBoxPanel.h"
+#include "EditorStyleSet.h"
 #include "Interfaces/IMainFrameModule.h"
 
 

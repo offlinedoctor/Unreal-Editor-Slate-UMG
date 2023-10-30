@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/Widget.h"
-#include "AssetData.h"	
+#include "AssetRegistry/AssetData.h"
 #include "PropertyCustomizationHelpers.h"
 #include "EW_Widget_EyeDropper.generated.h"
 

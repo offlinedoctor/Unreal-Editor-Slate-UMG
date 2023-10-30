@@ -57,6 +57,7 @@ public class EditorWidgetFunctionLibrary : ModuleRules
 				"AppFramework",
 				"VirtualCamera",
 				"NetcodeUnitTest",
+                "ToolWidgets",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
